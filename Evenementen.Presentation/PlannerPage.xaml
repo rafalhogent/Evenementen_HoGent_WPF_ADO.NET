@@ -1,0 +1,31 @@
+﻿<Page x:Class="Evenementen.Presentation.PlannerPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Evenementen.Presentation"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="800"
+      Title="Planner">
+
+   <Grid Margin="20">
+      <Grid.RowDefinitions>
+         <RowDefinition/>
+         <RowDefinition Height="80"/>
+      </Grid.RowDefinitions>
+      <ListBox x:Name="Lsb_Planner" DisplayMemberPath="Value" Style="{StaticResource  ListboxEx}">
+
+      </ListBox>
+      <Grid Grid.Row="1" Margin="10" VerticalAlignment="Center">
+         <WrapPanel>
+            <Button x:Name="Btn_Remove" Content="Remove Selected" Style="{StaticResource  stdBtn}" Click="Btn_Remove_Click"/>
+            <Button x:Name="Btn_GoBack" Content="Go Back" Style="{StaticResource  stdBtn}" Click="Btn_GoBack_Click"/>
+         </WrapPanel>
+
+         <WrapPanel HorizontalAlignment="Right" VerticalAlignment="Center">
+            <Label Content="Total price" Style="{StaticResource stdLbl}"/>
+            <Label x:Name="Lbl_PriceValue" MinWidth="80" Content="112" Style="{StaticResource stdLbl}"/>
+         </WrapPanel>
+      </Grid>
+   </Grid>
+</Page>

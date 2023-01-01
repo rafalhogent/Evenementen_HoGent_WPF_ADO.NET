@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="settings.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="settings.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Evenementen.Domain\Evenementen.Domain.csproj" />
+    <ProjectReference Include="..\Evenementen.Persitence\Evenementen.Persitence.csproj" />
+    <ProjectReference Include="..\Evenementen.Presentation\Evenementen.Presentation.csproj" />
+  </ItemGroup>
+
+</Project>

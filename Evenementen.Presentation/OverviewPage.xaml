@@ -1,0 +1,101 @@
+﻿<Page x:Class="Evenementen.Presentation.OverviewPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Evenementen.Presentation"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="800"
+      Title="OverviewPage">
+
+   <Grid>
+      <Grid.ColumnDefinitions>
+         <ColumnDefinition/>
+         <ColumnDefinition/>
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+         <RowDefinition Height="50" />
+         <RowDefinition/>
+         <RowDefinition Height="40"/>
+      </Grid.RowDefinitions>
+      <Grid Grid.Row="1">
+         <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="80" MaxHeight="100"/>
+            <RowDefinition/>
+            <RowDefinition  Height="60"/>
+            <RowDefinition  MaxHeight="100"/>
+         </Grid.RowDefinitions>
+         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition  Width="2*"/>
+         </Grid.ColumnDefinitions>
+         <StackPanel Grid.Row="0" Grid.Column="0" Margin="1" Grid.ColumnSpan="2">
+            <Label Content="Identifier" Style="{StaticResource stdLbl }"/>
+            <TextBlock x:Name="Tbl_id" Text="" Style="{StaticResource stdBlck}" />
+         </StackPanel>
+
+         <StackPanel Grid.Row="1" Grid.Column="0" Margin="1" Grid.ColumnSpan="2">
+            <Label Content="Naam" Style="{StaticResource stdLbl }"/>
+            <TextBlock x:Name="Tbl_title" Text=""  Style="{StaticResource bldBlck}"/>
+         </StackPanel>
+
+         <StackPanel Grid.Row="2" Grid.Column="0" Margin="1" Grid.ColumnSpan="2">
+            <Label Content="Beschrijving" Style="{StaticResource stdLbl }"/>
+            <TextBlock x:Name="Tbl_beschr" Text="" Style="{StaticResource stdBlck}" />
+         </StackPanel>
+
+         <StackPanel Grid.Row="3" Grid.Column="0" Margin="1" Grid.ColumnSpan="1">
+            <Label Content="Startdatum" Style="{StaticResource stdLbl }"/>
+            <TextBlock x:Name="Tbl_start" Text="" Style="{StaticResource stdBlck}" />
+         </StackPanel>
+         
+         <StackPanel Grid.Row="3" Grid.Column="1" Margin="1" Grid.ColumnSpan="1">
+            <Label Content="Einddatum" Style="{StaticResource stdLbl }"/>
+            <TextBlock x:Name="Tbl_end" Text="" Style="{StaticResource stdBlck}" />
+         </StackPanel>
+         
+         <StackPanel Grid.Row="4" Grid.Column="1" Margin="1" Grid.ColumnSpan="1">
+            <Label Content="Prijs" Style="{StaticResource stdLbl }"/>
+            <TextBlock x:Name="Tbl_price" Text="" Style="{StaticResource stdBlck}" />
+         </StackPanel>
+         
+         <StackPanel Grid.Row="4" Grid.Column="0" Margin="1" Grid.ColumnSpan="1">
+            <Label Content="Parent-evenement" Style="{StaticResource stdLbl }"/>
+            <TextBlock x:Name="Tbl_hoofdevn" Text="" Style="{StaticResource stdBlck}" />
+         </StackPanel>
+
+      </Grid>
+      <ListBox x:Name="LsbEvenementen" Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Style="{StaticResource cntBase}"  MouseDoubleClick="LsbEvenementen_MouseDoubleClick"/>
+      <Grid x:Name="Grd_Searchbar" Grid.Column="1">
+         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="60"/>
+         </Grid.ColumnDefinitions>
+         <StackPanel Grid.Column="0" VerticalAlignment="Center">
+            <TextBox  x:Name="TxbSearch" Style="{StaticResource stdTxb}" IsEnabled="False"/>
+         </StackPanel>
+         <WrapPanel Grid.Column="1" VerticalAlignment="Center">
+            <Button x:Name="Btn_Find" Style="{StaticResource stdBtn}" Content="Find" Click="Btn_Find_Click" IsEnabled="False"/>
+         </WrapPanel>
+
+      </Grid>
+
+      <WrapPanel x:Name="Wrp_Pages" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center">
+         <Button x:Name="BtnSettings" Style="{StaticResource stdBtn}" Content="Settings" Click="BtnSettings_Click"/>
+         <Button x:Name="BtnPlanner" Style="{StaticResource stdBtn}" Content="Planner" IsEnabled="False" Click="BtnPlanner_Click"/>
+      </WrapPanel>
+      <WrapPanel Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center">
+         <Button x:Name="Btn_Up" Style="{StaticResource stdBtn}" Content="Up" IsEnabled="False" Click="Btn_Up_Click" />
+      </WrapPanel>
+      <WrapPanel x:Name="Wrp_BottonRightBtns" Grid.Row="2" HorizontalAlignment="Right">
+         <Button x:Name="Btn_AddToPlanner"  Style="{StaticResource stdBtn}"  Content="Add to planner" 
+                 IsEnabled="{Binding ElementName=Tbl_id, Path=Text.Length}" Click="Btn_AddToPlanner_Click"/>
+         <!--<Button  Style="{StaticResource stdBtn}"  Content="Open" IsEnabled="False"/>-->
+      </WrapPanel>
+      <WrapPanel x:Name="Wrp_BottonLeftBtns" Grid.Row="2" HorizontalAlignment="Left">
+         <!--<Button Style="{StaticResource stdBtn}"  Content="Save" IsEnabled="False"/>-->
+         <!--<Button Style="{StaticResource stdBtn}"  Content="Reset" IsEnabled="False"/>-->
+      </WrapPanel>
+   </Grid>
+</Page>
