@@ -26,6 +26,7 @@ namespace Evenementen.Presentation
         public event EventHandler<string>? EvenementSelected;
         public event EventHandler<string>? FindCicked;
         public event EventHandler<string>? AddBtnClicked;
+        public event EventHandler? AboutBtnClicked;
 
         public OverviewPage()
         {
@@ -64,6 +65,11 @@ namespace Evenementen.Presentation
         private void BtnPlanner_Click(object sender, RoutedEventArgs e)
         {
             PlannerBtnClicked?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void btnHelp_Click(object sender, RoutedEventArgs e)
+        {
+            AboutBtnClicked?.Invoke(this, EventArgs.Empty);
         }
     }
 }

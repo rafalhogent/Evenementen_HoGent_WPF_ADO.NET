@@ -15,11 +15,33 @@
         public List<Evenement> Subevenementen { get; set; } = new();
 
 
-        public override string? ToString()
+        private string DateInfo
         {
-            string date = StartDatum != null ? $"{FormatDate(StartDatum)} - {FormatDate(EindDatum)}" : "";
-            //return $"{Naam}";
-            return $"{Naam} {date}";
+            get { return StartDatum != null && EindDatum != null ? $" {FormatDate(StartDatum)} - {FormatDate(EindDatum)} " : ""; ; }
+        }
+
+        private string PriceInfo
+        {
+            get { return Prijs == null ? "" : 
+                    $" -   {(Prijs != 0 ? (Subevenementen.Count == 0 ? Prijs : "Total " + Prijs ) + " €" : "gratis" )}"; }
+        }
+
+        private string ChildrenInfo
+        {
+            get
+            {
+                return Subevenementen?.Count() > 0 ? "\n      - " + string.Join("\n      - ", Subevenementen.Select(x => x.ToString())) : "";
+            }
+        }
+
+        public override string ToString()
+        {
+            return $"{DateInfo}   {Naam}   {PriceInfo} ";
+        }
+
+        public string ToStringExtended()
+        {
+            return $" @{DateInfo}   {Naam}   {PriceInfo}  {ChildrenInfo}";
         }
 
         private string FormatDate(DateTime? date)

@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Evenementen.Presentation"
       mc:Ignorable="d" 
-      d:DesignHeight="600" d:DesignWidth="800"
+      d:DesignHeight="600" d:DesignWidth="860"
       Title="OverviewPage">
 
    <Grid>
@@ -72,9 +72,11 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="60"/>
          </Grid.ColumnDefinitions>
+         
          <StackPanel Grid.Column="0" VerticalAlignment="Center">
             <TextBox  x:Name="TxbSearch" Style="{StaticResource stdTxb}" IsEnabled="False"/>
          </StackPanel>
+         
          <WrapPanel Grid.Column="1" VerticalAlignment="Center">
             <Button x:Name="Btn_Find" Style="{StaticResource stdBtn}" Content="Find" Click="Btn_Find_Click" IsEnabled="False"/>
          </WrapPanel>
@@ -84,18 +86,17 @@
       <WrapPanel x:Name="Wrp_Pages" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center">
          <Button x:Name="BtnSettings" Style="{StaticResource stdBtn}" Content="Settings" Click="BtnSettings_Click"/>
          <Button x:Name="BtnPlanner" Style="{StaticResource stdBtn}" Content="Planner" IsEnabled="False" Click="BtnPlanner_Click"/>
+         <Button x:Name="btnAbout" Style="{StaticResource stdBtn}"  Content="About" IsEnabled="True" Click="btnHelp_Click"/>
       </WrapPanel>
+      
       <WrapPanel Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center">
          <Button x:Name="Btn_Up" Style="{StaticResource stdBtn}" Content="Up" IsEnabled="False" Click="Btn_Up_Click" />
       </WrapPanel>
+      
       <WrapPanel x:Name="Wrp_BottonRightBtns" Grid.Row="2" HorizontalAlignment="Right">
          <Button x:Name="Btn_AddToPlanner"  Style="{StaticResource stdBtn}"  Content="Add to planner" 
                  IsEnabled="{Binding ElementName=Tbl_id, Path=Text.Length}" Click="Btn_AddToPlanner_Click"/>
-         <!--<Button  Style="{StaticResource stdBtn}"  Content="Open" IsEnabled="False"/>-->
       </WrapPanel>
-      <WrapPanel x:Name="Wrp_BottonLeftBtns" Grid.Row="2" HorizontalAlignment="Left">
-         <!--<Button Style="{StaticResource stdBtn}"  Content="Save" IsEnabled="False"/>-->
-         <!--<Button Style="{StaticResource stdBtn}"  Content="Reset" IsEnabled="False"/>-->
-      </WrapPanel>
+
    </Grid>
 </Page>

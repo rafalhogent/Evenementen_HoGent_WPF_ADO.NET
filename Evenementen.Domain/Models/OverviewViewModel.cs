@@ -3,7 +3,7 @@
 namespace Evenementen.Domain
 {
 
-    public class EvenementViewModel 
+    public class OverviewViewModel 
     {
         public string Identifier { get; set; } = "";
         public string Naam { get; set; } = "";
@@ -19,7 +19,9 @@ namespace Evenementen.Domain
         public string ToExtendedInfoString()
         {
             string indent = new(' ', 16);
-            return $"{StartDatum} - {EindDatum} - {Prijs} : {Naam} {string.Join("" , Subevenementen.Select(x => "\n" + indent + x.Value))}";
+            string date = (string.IsNullOrWhiteSpace(StartDatum) && string.IsNullOrWhiteSpace(EindDatum)) ? $"{StartDatum} - {EindDatum}" : "";
+            string price = string.IsNullOrWhiteSpace(Prijs) ? "" : $"{Prijs}";
+            return $"{date} - {price} : {Naam} {string.Join("", Subevenementen.Select(x => "\n" + indent + x.Value))}";
         }
 
         public override string? ToString()

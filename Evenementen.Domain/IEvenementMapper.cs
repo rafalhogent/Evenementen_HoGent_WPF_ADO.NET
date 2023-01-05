@@ -14,7 +14,7 @@ namespace Evenementen.Domain
 
         void AddEvenementToPlanner(string evenementId);
         bool CheckDbExists(string cs);
-        Evenement? GetEvenementById(string evnId);
+        Evenement? GetEvenementById(string? evnId);
         IEnumerable<Evenement> GetEvenementenByParentEvenementId(string? parentEvenementId, string? word = null);
         IEnumerable<Evenement> GetEvenementenFromPlanner();
         bool IsEvenementByIdAlreadyAddedToPlanner(string identifier);

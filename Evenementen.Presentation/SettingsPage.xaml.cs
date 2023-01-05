@@ -21,7 +21,7 @@ namespace Evenementen.Presentation
     /// </summary>
     public partial class SettingsPage : Page
     {
-        public event EventHandler? MappingStarted;
+        public event EventHandler? StartMappingClicked;
         public event EventHandler? GoBackClicked;
 
         public string ConnectionString { get; set; } = "";
@@ -43,7 +43,7 @@ namespace Evenementen.Presentation
 
         private void Btn_StartMapping_Click(object sender, RoutedEventArgs e)
         {
-            MappingStarted?.Invoke(this, EventArgs.Empty);
+            StartMappingClicked?.Invoke(this, EventArgs.Empty);
         }
 
         private void Btn_GoBack_Click(object sender, RoutedEventArgs e)

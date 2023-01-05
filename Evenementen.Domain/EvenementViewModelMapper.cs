@@ -8,28 +8,33 @@ namespace Evenementen.Domain
 {
     public class EvenementViewModelMapper
     {
-        public static EvenementViewModel Map(Evenement evn, string? parentNaam, IEnumerable<Evenement>? subevn = null )
+        public static OverviewViewModel Map(Evenement? evn, string? parentNaam, IEnumerable<Evenement>? subevn = null)
         {
             Dictionary<string, string> children = new();
+            OverviewViewModel ovvVM = new OverviewViewModel();
             if (subevn != null)
             {
-                foreach (var item in subevn)
+                foreach (var item in subevn.OrderBy(x=>x.StartDatum))
                 {
-                    children.Add(item.Identifier, $"{item.StartDatum} - {item.EindDatum} - {item.Prijs} € : {item.Naam} " );
+                    children.Add(item.Identifier, item.ToString());
                 }
             }
-            return new EvenementViewModel()
+
+            ovvVM.Subevenementen = children;
+
+            if (evn != null)
             {
-                Identifier = evn.Identifier,
-                Naam = evn.Naam,
-                Prijs = evn.Prijs == null ? "" : $"{evn.Prijs} €",
-                Beschrijving = evn.Beschrijving,
-                StartDatum = evn.StartDatum == null ? "" : evn.StartDatum.Value.ToString(),
-                EindDatum = evn.EindDatum == null ? "" : evn.EindDatum.Value.ToString(),
-                ParentEvenementNaam = parentNaam,
-                ParentEvenementId = evn.ParentEvenementId,
-                Subevenementen = children,
-            };
+                ovvVM.Identifier = evn.Identifier;
+                ovvVM.Naam = evn.Naam;
+                ovvVM.Prijs = evn.Prijs == null ? "" : $"{(evn.Prijs == 0 ? "gratis" : evn.Prijs + " €")} ";
+                ovvVM.Beschrijving = evn.Beschrijving;
+                ovvVM.StartDatum = evn.StartDatum == null ? "" : evn.StartDatum.Value.ToString();
+                ovvVM.EindDatum = evn.EindDatum == null ? "" : evn.EindDatum.Value.ToString();
+                ovvVM.ParentEvenementNaam = parentNaam;
+                ovvVM.ParentEvenementId = evn.ParentEvenementId;
+            }
+
+            return ovvVM;
         }
     }
 }
