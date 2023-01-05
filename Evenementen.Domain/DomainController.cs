@@ -51,6 +51,10 @@ namespace Evenementen.Domain
         {
             return _evenementMapper.CheckDbExists(connectionString);
         }
+        public string GetAboutMessage()
+        {
+            return "2022 Gentse Evenementen v 1.10";
+        }
 
         #endregion - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -123,10 +127,6 @@ namespace Evenementen.Domain
             return overviewVM;
         }
 
-        public string GetAboutMessage()
-        {
-            return "2022 Gentse Evenementen v 1.1";
-        }
 
         public PlannerViewModel GetPlannerViewModel()
         {
