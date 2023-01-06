@@ -112,14 +112,14 @@ namespace Evenementen.Presentation
             _overviewPage.SettingsBtnClicked += On_SettingsBtn_Clicked;
             _overviewPage.EvenementSelected += On_EvenementSelected;
             _overviewPage.UpBtnClicked += On_GoUp_CLicked;
-            _settingsPage.GoBackClicked += On_GoFromSettingsToOverviewPage_Clicked;
+            _settingsPage.GoBackClicked += On_GoToOverviewPage_Clicked;
             _settingsPage.StartMappingClicked += On_StartMapping_Clicked;
             _controller.RowAdded += ProgressMade;
             _controller.JobDone += MappingIsDone;
             _overviewPage.FindCicked += On_Find_Clicked;
             _overviewPage.AddBtnClicked += On_AddEvenementToDbPlannerBtn_Clicked;
             _overviewPage.PlannerBtnClicked += On_OpenPlannerPageBtn_Clicked;
-            _plannerPage.BtnGoBackClicked += On_GoFromSettingsToOverviewPage_Clicked;
+            _plannerPage.BtnGoBackClicked += On_GoToOverviewPage_Clicked;
             _plannerPage.BtnRemoveClicked += RemoveBtn_Clicked;
             _overviewPage.AboutBtnClicked += On_AboutBtn_Clicked;
         }
@@ -140,6 +140,7 @@ namespace Evenementen.Presentation
                     }
                     else
                     {
+                        DbFound = false;
                         MessageBox.Show("Database not found, open settings to create one.");
                     }
                 }
@@ -267,7 +268,7 @@ namespace Evenementen.Presentation
             _settingsPage.Grd_Settings.IsEnabled = status;
         }
 
-        private void On_GoFromSettingsToOverviewPage_Clicked(object? sender, EventArgs e)
+        private void On_GoToOverviewPage_Clicked(object? sender, EventArgs e)
         {
             SaveSettings();
             ReadSettings();
@@ -329,11 +330,6 @@ namespace Evenementen.Presentation
         {
             ReadSettings();
             CheckDbAndSetOverview();
-            if (DbFound)
-            {
-                UnblockOverviewPageControls();
-                UpdateOverviewPage(null);
-            }
 
             _mainWindow.MainFrame.Content = _overviewPage;
         }
