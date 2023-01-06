@@ -1,1 +1,1 @@
-﻿Server=.\SQLEXPRESS;Database=EvenementenDb2;Trusted_Connection=True;Encrypt=False
+﻿Server=.\SQLEXPRESS;Database=EvenementenDb;Trusted_Connection=True;Encrypt=False

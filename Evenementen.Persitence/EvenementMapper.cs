@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.Intrinsics.X86;
@@ -323,16 +324,17 @@ namespace Evenementen.Persitence
 
         private static Evenement? MapEvenementRow(string[] row)
         {
-            var hasStart = DateTime.TryParse(row[2], out DateTime startTime);
-            var hasEnd = DateTime.TryParse(row[1], out DateTime endTime);
+            
+            var hasStart = DateTimeOffset.TryParse(row[2], new CultureInfo("nl-BE"), DateTimeStyles.None, out DateTimeOffset startTime);
+            var hasEnd = DateTimeOffset.TryParse(row[1], new CultureInfo("nl-BE"), DateTimeStyles.None, out DateTimeOffset endTime);
             var hasPrice = decimal.TryParse(row[^1], out decimal prijs);
             string beschrijving = string.Join("; ", row.ToList().GetRange(5, row.Length - 7));
 
             Evenement eve = new Evenement
             {
                 Identifier = row[0].Trim(),
-                StartDatum = hasStart == true ? startTime : null,
-                EindDatum = hasEnd == true ? endTime : null,
+                StartDatum = hasStart == true ? startTime.DateTime : null,
+                EindDatum = hasEnd == true ? endTime.DateTime : null,
                 Prijs = hasPrice == true ? prijs : null,
                 Naam = row[^2],
                 Beschrijving = string.IsNullOrWhiteSpace(beschrijving) ? null : beschrijving,

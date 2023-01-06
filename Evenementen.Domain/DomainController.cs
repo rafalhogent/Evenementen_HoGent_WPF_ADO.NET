@@ -67,12 +67,24 @@ namespace Evenementen.Domain
             List<Evenement> plannerEven = _evenementMapper.GetEvenementenFromPlanner()
                                                           .SelectNestedChildren(x => x.Subevenementen)
                                                           .Where(x => x.StartDatum != null || x.EindDatum != null).ToList();
-
+            List<Evenement> evenToCompare = new();
+            evenement.Subevenementen = _evenementMapper.GetEvenementenByParentEvenementId(evenement.Identifier).ToList();
+            if (evenement.Subevenementen.Count > 0)
+            {
+                evenToCompare.AddRange(evenement.Subevenementen.SelectNestedChildren(x => x.Subevenementen));
+            }
+            else
+            {
+                evenToCompare.Add(evenement);
+            }
             foreach (var planEvn in plannerEven)
             {
-                if (evenement.StartDatum <= planEvn.EindDatum && evenement.EindDatum >= planEvn.StartDatum)
+                foreach (var ev in evenToCompare)
                 {
-                    return true;
+                    if (ev.StartDatum <= planEvn.EindDatum && ev.EindDatum >= planEvn.StartDatum)
+                    {
+                        return true;
+                    }
                 }
             }
             return false;
@@ -121,6 +133,7 @@ namespace Evenementen.Domain
             if (evnRes != null)
             {
                 evnRes.Subevenementen = subevn.OrderBy(x => x.StartDatum).ToList();
+                parent = _evenementMapper.GetEvenementById(evnRes.ParentEvenementId);
                 CalculateEvenementDynamicData(ref evnRes);
             }
             overviewVM = EvenementViewModelMapper.Map(evnRes, parent?.Naam, subevn);
