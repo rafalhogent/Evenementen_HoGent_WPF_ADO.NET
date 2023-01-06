@@ -347,6 +347,7 @@ namespace Evenementen.Presentation
                 _overviewPage.Tbl_end.Text = evnVM == null ? "" : evnVM.EindDatum;
                 _overviewPage.Tbl_price.Text = evnVM == null ? "" : evnVM.Prijs;
                 _overviewPage.Tbl_hoofdevn.Text = evnVM == null ? "" : evnVM.ParentEvenementNaam;
+                _overviewPage.Lbl_nav.Content = evnVM?.TreePath.ToString();
                 _overviewPage.Btn_Up.IsEnabled = string.IsNullOrWhiteSpace(CurrentEvenement?.Identifier) ? false : true;
                 _overviewPage.LsbEvenementen.ItemsSource = CurrentEvenement?.Subevenementen;
                 _overviewPage.LsbEvenementen.Items.Refresh();

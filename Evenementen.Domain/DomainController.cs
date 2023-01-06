@@ -137,6 +137,20 @@ namespace Evenementen.Domain
                 CalculateEvenementDynamicData(ref evnRes);
             }
             overviewVM = EvenementViewModelMapper.Map(evnRes, parent?.Naam, subevn);
+
+            List<string> treepathelements = new();
+            Evenement? curEve = parent;
+            if (parent != null) treepathelements.Add(parent.Naam);
+            while (curEve?.ParentEvenementId != null)
+            {
+                var newparent = _evenementMapper.GetEvenementById(curEve.ParentEvenementId);
+                if (newparent != null) treepathelements.Add(newparent.Naam);
+                curEve = newparent;
+            }
+            treepathelements.Reverse();
+            treepathelements.Insert(0,"root");
+
+            overviewVM.TreePath = string.Join(" -> ", treepathelements);
             return overviewVM;
         }
 

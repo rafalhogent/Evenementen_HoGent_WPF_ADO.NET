@@ -13,6 +13,7 @@ namespace Evenementen.Domain
         public string EindDatum { get; set; } = "";
         public string? ParentEvenementNaam { get; set; }
         public string? ParentEvenementId { get; set; }
+        public string TreePath { get; set; } = "root";
 
         public Dictionary<string, string> Subevenementen { get; set; } = new();
 
