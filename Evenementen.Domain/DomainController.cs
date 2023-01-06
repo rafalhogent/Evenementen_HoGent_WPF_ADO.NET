@@ -64,19 +64,34 @@ namespace Evenementen.Domain
 
         private bool CheckIfEvenementPeriodeCollides(Evenement evenement)
         {
-            List<Evenement> plannerEven = _evenementMapper.GetEvenementenFromPlanner()
-                                                          .SelectNestedChildren(x => x.Subevenementen)
-                                                          .Where(x => x.StartDatum != null || x.EindDatum != null).ToList();
+
             List<Evenement> evenToCompare = new();
             evenement.Subevenementen = _evenementMapper.GetEvenementenByParentEvenementId(evenement.Identifier).ToList();
             if (evenement.Subevenementen.Count > 0)
             {
-                evenToCompare.AddRange(evenement.Subevenementen.SelectNestedChildren(x => x.Subevenementen));
+                evenToCompare.AddRange(evenement.Subevenementen.SelectNestedChildren(x => x.Subevenementen)
+                    .Where(x => x.StartDatum != null || x.EindDatum != null));
             }
             else
             {
                 evenToCompare.Add(evenement);
             }
+
+            foreach (var evn1 in evenToCompare)
+            {
+                foreach (var evn2 in evenToCompare)
+                {
+                    if (evn1.Identifier != evn2.Identifier && evn1.StartDatum <= evn2.EindDatum && evn1.EindDatum >= evn2.StartDatum)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+
+            List<Evenement> plannerEven = _evenementMapper.GetEvenementenFromPlanner()
+                                                          .SelectNestedChildren(x => x.Subevenementen)
+                                                          .Where(x => x.StartDatum != null || x.EindDatum != null).ToList();
             foreach (var planEvn in plannerEven)
             {
                 foreach (var ev in evenToCompare)
@@ -148,7 +163,7 @@ namespace Evenementen.Domain
                 curEve = newparent;
             }
             treepathelements.Reverse();
-            treepathelements.Insert(0,"root");
+            treepathelements.Insert(0, "root");
 
             overviewVM.TreePath = string.Join(" -> ", treepathelements);
             return overviewVM;
@@ -193,7 +208,6 @@ namespace Evenementen.Domain
                 bool evnAdded = _evenementMapper.IsEvenementByIdAlreadyAddedToPlanner(evm.Identifier);
                 if (!evnAdded)
                 {
-                    // check periodes
 
                     if (!CheckIfEvenementPeriodeCollides(evm))
                     {
@@ -201,7 +215,7 @@ namespace Evenementen.Domain
                     }
                     else
                     {
-                        throw new Exception("Selected Evenement collides with Evenements in planner");
+                        throw new Exception("Selected Evenement(en) collide(s) with Evenements in planner or with each other.");
                     }
                 }
                 else
@@ -213,6 +227,11 @@ namespace Evenementen.Domain
             {
                 throw new Exception("Evenement does not exist");
             }
+        }
+
+        private bool CheckIfSelectedEvenementenCollideWithEachOther(Evenement evm)
+        {
+            throw new NotImplementedException();
         }
 
         public void RemoveEvenementFromPlannerById(string key)
