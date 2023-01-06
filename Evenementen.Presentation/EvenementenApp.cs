@@ -125,7 +125,8 @@ namespace Evenementen.Presentation
         }
         private async void CheckDbAndSetOverview()
         {
-            if (DbFound) return;
+            //if (DbFound) return;
+            ReadSettings();
             await Task.Run(() =>
             {
                 try
@@ -269,7 +270,7 @@ namespace Evenementen.Presentation
         private void On_GoFromSettingsToOverviewPage_Clicked(object? sender, EventArgs e)
         {
             SaveSettings();
-            CheckDbAndSetOverview();
+            ReadSettings();
             OpenOverviewPage();
         }
 
@@ -327,6 +328,7 @@ namespace Evenementen.Presentation
         private void OpenOverviewPage()
         {
             ReadSettings();
+            CheckDbAndSetOverview();
             if (DbFound)
             {
                 UnblockOverviewPageControls();
