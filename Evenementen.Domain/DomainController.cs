@@ -110,15 +110,15 @@ namespace Evenementen.Domain
             var flattendSubevenementen = evn.Subevenementen.SelectNestedChildren(s => s.Subevenementen).ToList();
             if (evn.Prijs == null)
             {
-                evn.Prijs = flattendSubevenementen.Select(x => x.Prijs).Sum();
+                evn.Prijs = flattendSubevenementen.Sum(x => x.Prijs);
             }
             if (evn.StartDatum == null)
             {
-                evn.StartDatum = flattendSubevenementen.Select(x => x.StartDatum).Min();
+                evn.StartDatum = flattendSubevenementen.Min(x => x.StartDatum);
             }
             if (evn.EindDatum == null)
             {
-                evn.EindDatum = flattendSubevenementen.Select(x => x.EindDatum).Max();
+                evn.EindDatum = flattendSubevenementen.Max(x => x.EindDatum);
             }
         }
 
